@@ -14,7 +14,11 @@
 	<name>cloud-parent</name>
 	<packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>
-
+	<modules>
+		<module>framework-common</module>
+		<module>registry-server</module>
+		<module>microservice-common</module>
+	</modules>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
@@ -41,6 +45,11 @@
 				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>8.0.16</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
