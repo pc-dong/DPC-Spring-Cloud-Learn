@@ -1,4 +1,4 @@
-package com.dpc.authenticationserver;
+package com.dpc.aau;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

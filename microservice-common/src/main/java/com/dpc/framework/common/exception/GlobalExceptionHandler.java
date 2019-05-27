@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -37,19 +38,20 @@ public class GlobalExceptionHandler {
 		}
 
 		if (e instanceof IllegalStateException) {
-			new ResponseEntity<>(Error.error("参数传递错误"), HttpStatus.BAD_REQUEST);
+			log.error("", e);
+			return new ResponseEntity<>(Error.error("参数传递错误"), HttpStatus.BAD_REQUEST);
 		}
 
 		if (e instanceof ErrorInfoException) {
-			new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 
 		if (e instanceof ErrorInfoException) {
-			new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 
-		if (e instanceof EntityNotFoudException) {
-			new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.NOT_FOUND);
+		if (e instanceof EntityNotFoudException || e instanceof NoSuchElementException) {
+			return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 
 		log.error("", e);
