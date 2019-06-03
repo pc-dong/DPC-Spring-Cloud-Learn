@@ -16,20 +16,29 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>${groupId}</groupId>
-			<artifactId>microservice-common</artifactId>
-			<version>${version}</version>
-		</dependency>
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.cloud</groupId>-->
-			<!--<artifactId>spring-cloud-starter-gateway</artifactId>-->
+			<!--<groupId>${groupId}</groupId>-->
+			<!--<artifactId>microservice-common</artifactId>-->
+			<!--<version>${version}</version>-->
+			<!--&lt;!&ndash;<exclusions>&ndash;&gt;-->
+				<!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+					<!--&lt;!&ndash;<groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+					<!--&lt;!&ndash;<artifactId>spring-boot-starter-web</artifactId>&ndash;&gt;-->
+				<!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+			<!--&lt;!&ndash;</exclusions>&ndash;&gt;-->
 		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-gateway-webflux</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

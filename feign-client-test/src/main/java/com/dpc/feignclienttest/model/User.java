@@ -1,4 +1,4 @@
-package com.dpc.gateway.model;
+package com.dpc.feignclienttest.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;

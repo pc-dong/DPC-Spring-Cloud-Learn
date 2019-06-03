@@ -1,15 +1,31 @@
 server:
   port: 8080
-spring:
-  application:
-    name: api-gateway
-
-
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://dpc:dpc123@127.0.0.1:8761/eureka/
-feign:
-  hystrix:
-    enabled: true
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: uaa
+          uri: lb://authentication-server
+          predicates:
+            - Path=/uaa/**
+          filters:
+            - StripPrefix=1
+        - id: feignclient
+          uri: lb://feign-client-test
+          predicates:
+            - Path=/feign/**
+          filters:
+            - StripPrefix=1
+        - id: baidu
+          uri: http://www.baidu.com
+          predicates:
+            - Path=/baidu
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true

@@ -1,8 +1,8 @@
-package com.dpc.gateway.controller;
+package com.dpc.feignclienttest.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dpc.gateway.feign.UaaServiceClient;
-import com.dpc.gateway.model.User;
+import com.dpc.feignclienttest.model.User;
+import com.dpc.feignclienttest.feign.UaaServiceClient;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

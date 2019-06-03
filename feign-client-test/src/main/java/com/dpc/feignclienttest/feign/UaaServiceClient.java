@@ -1,10 +1,9 @@
-package com.dpc.gateway.feign;
+package com.dpc.feignclienttest.feign;
 
-import com.dpc.gateway.model.User;
+import com.dpc.feignclienttest.model.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author dongpeichao
