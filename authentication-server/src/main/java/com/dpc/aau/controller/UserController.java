@@ -43,7 +43,7 @@ public class UserController extends BaseController {
 		User user = userService.findOne(userId);
 
 		if (null == user) {
-			throw new EntityNotFoudException();
+			throw new EntityNotFoudException("用户不存在");
 		}
 
 		return user;

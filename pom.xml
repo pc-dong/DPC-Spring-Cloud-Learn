@@ -18,6 +18,8 @@
 		<module>framework-common</module>
 		<module>registry-server</module>
 		<module>microservice-common</module>
+		<module>authentication-server</module>
+		<module>api-gateway</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
@@ -64,6 +66,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>nexus-aliyun</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>

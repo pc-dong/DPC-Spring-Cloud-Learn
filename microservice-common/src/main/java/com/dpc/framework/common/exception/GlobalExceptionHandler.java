@@ -1,5 +1,6 @@
 package com.dpc.framework.common.exception;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dpc.framework.common.beans.Error;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -23,38 +25,53 @@ import java.util.Objects;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler
-	public ResponseEntity<Error> exceptionHandler(Exception e) throws Exception {
-		// 参数校验提示
-		if (e instanceof BindException) {
-			return new ResponseEntity<>(Error.error(Objects.requireNonNull(((BindException) e).getFieldError())
-					.getDefaultMessage()), HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<Error> exceptionHandler(BindException e) {
+		return new ResponseEntity<>(Error.error(e.getFieldError()
+				.getDefaultMessage()), HttpStatus.BAD_REQUEST);
+	}
 
-		// 参数校验提示
-		if (e instanceof MethodArgumentNotValidException) {
-			return new ResponseEntity<>(Error.error(
-					Objects.requireNonNull(((MethodArgumentNotValidException) e).getBindingResult().getFieldError())
-							.getDefaultMessage()), HttpStatus.BAD_REQUEST);
-		}
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(MethodArgumentNotValidException e) {
+		return new ResponseEntity<>(Error.error(e.getBindingResult().getFieldError()
+				.getDefaultMessage()), HttpStatus.BAD_REQUEST);
+	}
 
-		if (e instanceof IllegalStateException) {
-			log.error("", e);
-			return new ResponseEntity<>(Error.error("参数传递错误"), HttpStatus.BAD_REQUEST);
-		}
-
-		if (e instanceof ErrorInfoException) {
-			return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-
-		if (e instanceof ErrorInfoException) {
-			return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-
-		if (e instanceof EntityNotFoudException || e instanceof NoSuchElementException) {
-			return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.NOT_FOUND);
-		}
-
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(IllegalStateException e) {
 		log.error("", e);
-		throw e;
+		return new ResponseEntity<>(Error.error("参数传递错误"), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(ErrorInfoException e) {
+		return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(EntityNotFoudException e) {
+		return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(NoSuchElementException e) {
+		return new ResponseEntity<>(Error.error(e.getMessage()), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(FeignBadResponseWrapper e) {
+		return new ResponseEntity<>(e.getError(),
+				HttpStatus.valueOf(e.getStatus()));
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<Error> exceptionHandler(HttpClientErrorException e) {
+		Error error = null;
+		try {
+			String body = e.getResponseBodyAsString();
+			error = JSONObject.parseObject(body, Error.class);
+		} catch (Exception ignored) {
+		}
+
+		return new ResponseEntity<>(null == error ? Error.error(e.getMessage()) : error, e.getStatusCode());
 	}
 }
