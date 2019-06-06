@@ -17,4 +17,4 @@ spring:
         - id: baidu1
           uri: http://www.baidu.com
           predicates:
-            - Path=/baidu
+            - Path=/baidu1
