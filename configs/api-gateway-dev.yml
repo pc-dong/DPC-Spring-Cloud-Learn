@@ -1,1 +1,20 @@
-test: 1111
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: uaa
+          uri: lb://authentication-server
+          predicates:
+            - Path=/uaa/**
+          filters:
+            - StripPrefix=1
+        - id: feignclient
+          uri: lb://feign-client-test
+          predicates:
+            - Path=/feign/**
+          filters:
+            - StripPrefix=1
+        - id: baidu1
+          uri: http://www.baidu.com
+          predicates:
+            - Path=/baidu
