@@ -1,14 +1,8 @@
 server:
   port: 5000
 spring:
-  application:
-    name: authentication-server
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cloud_test
     username: root
     password: root
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://dpc:dpc123@127.0.0.1:8761/eureka/

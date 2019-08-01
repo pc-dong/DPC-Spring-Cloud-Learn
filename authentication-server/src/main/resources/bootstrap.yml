@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-gateway
+    name: authentication-server
   profiles:
     active: dev
   cloud:
@@ -8,7 +8,6 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
-      profile: dev
 eureka:
   client:
     serviceUrl:

@@ -1,0 +1,27 @@
+server:
+  port: 8888
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://dpc:dpc123@127.0.0.1:8761/eureka/
+  instance:
+    metadata-map:
+      user: ${spring.security.user.name}
+      password: ${spring.security.user.password}
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/dongpeichao/DPC-Spring-Cloud-Learn
+          default-label: develop
+          force-pull: true
+          search-paths: /configs
+  security:
+    user:
+      name: dpc
+      password: dpc123
